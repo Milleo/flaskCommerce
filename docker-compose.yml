@@ -1,0 +1,36 @@
+version: "3.9"
+services: 
+  nginx:
+    build:
+      context: .
+      dockerfile: ./nginx/Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - backend
+  database:
+    image: mysql:5.7
+    command: --init-file /data/application/init.sql
+    volumes:
+      - ./database/init.sql:/data/application/init.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_DATABASE: flaskcommerce
+      MYSQL_USER: flaskcommerce_user
+      MYSQL_PASSWORD: 123
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", '-uflaskcommerce_user', '-p123']
+      timeout: 20s
+      retries: 10
+    restart: "always"
+  backend:
+    build:
+      context: .
+      dockerfile: ./backend/Dockerfile
+    volumes:
+      - ./backend:/var/www/
+    depends_on:
+      - database
+    restart: "always"
