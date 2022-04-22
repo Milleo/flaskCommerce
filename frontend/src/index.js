@@ -1,13 +1,17 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import Home from "./pages/Home";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Header from "./layout/Header";
+import Footer from "./layout/Footer";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
+ReactDOM.render(
   <Router>
-    <Routes>
+    <Header />
+    <Switch>
       <Route path="/" exact element={<Home />} />
-    </Routes>
-  </Router>
+    </Switch>
+    <Footer />
+  </Router>,
+  document.getElementById('root')
 );
