@@ -38,3 +38,12 @@ services:
     restart: "always"
     env_file:
       - .env
+  frontend:
+    build:
+      context: .
+      dockerfile: ./frontend/Dockerfile
+    volumes:
+      - ./frontend:/var/www
+    depends_on:
+      - backend
+    restart: "always"
