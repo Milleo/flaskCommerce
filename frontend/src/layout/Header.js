@@ -1,9 +1,7 @@
-import Container from '@material-ui/core/Container';
-
 function Header(){
-    return <Container>
+    return <>
         Flask Commerce
-    </Container>
+    </>
 }
 
 export default Header;

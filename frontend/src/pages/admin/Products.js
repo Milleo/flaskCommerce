@@ -1,8 +1,13 @@
-import { Button, TextField } from "@material-ui/core";
+import { Button, Paper, Table, TableContainer, TableHead, TableRow, TableBody, TableCell, Typography } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
 import axios from "axios";
 import { useFormik } from 'formik';
+import { useEffect, useState } from "react";
+import AddIcon from '@material-ui/icons/Add';
+import { Link } from "react-router-dom";
 
-const Products = () => {
+const Products = (props) => {
+    const [products, setProducts] = useState([]);
     const formik = useFormik({
         initialValues: {
             name: ""
@@ -14,12 +19,43 @@ const Products = () => {
                 console.error("ERROR");
             })
         }
-    })
+    });
 
-    return <form noValidate autoComplete="off" onSubmit={formik.handleSubmit}>
-        <TextField name="name" label="Outlined" variant="outlined" onChange={formik.handleChange} value={formik.values.name} />
-        <Button type="submit" variant="contained" color="primary">Create</Button>
-    </form>
+    useEffect(() => {
+        axios.get("/api/admin/products").then((resp) => {
+            setProducts(resp.data.products);
+        }).catch(() => {
+            console.log("ERROR");
+        });
+    }, [])
+
+    return <>
+        <Typography component="h1" variant="h4">Products</Typography>
+        { props.location.state.flashMessage && <Alert severity={props.location.state.flashMessage.status}>{props.location.state.flashMessage.message}</Alert> }
+        <Button component={Link} to="/admin/products/create" variant="contained" color="primary" startIcon={<AddIcon />}>Add product</Button>
+        <TableContainer component={Paper}>
+            <Table>
+                <TableHead>
+                    <TableRow>
+                        <TableCell>ID</TableCell>
+                        <TableCell>Name</TableCell>
+                        <TableCell>Brand</TableCell>
+                        <TableCell>Category</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {products.map((product) => {
+                        return <TableRow key={product.id}>
+                            <TableCell component="th" scope="row">{product.id}</TableCell>
+                            <TableCell>{product.name}</TableCell>
+                            <TableCell>Test</TableCell>
+                            <TableCell>Test</TableCell>
+                        </TableRow>
+                    })}
+                </TableBody>
+            </Table>
+        </TableContainer>
+    </>
 
 }
 
