@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import Admin from "./Admin";
 import Login from "./pages/admin/Login";
+import Install from "./pages/install/Install";
 import FrontendTemplate from "./layout/FrontendTemplate";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -14,6 +15,7 @@ ReactDOM.render(
   <Suspense fallback="loading">
     <Router>
       <Switch>
+        <Route exact path="/install" component={Install} />
         <Route exact path="/admin/login" component={Login} />
         <Route path="/admin" component={Admin} />
         <Route path="/">
