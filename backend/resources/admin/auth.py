@@ -21,4 +21,4 @@ class Auth(Resource):
             access_token = jwt.encode({"username": user.name, "exp": datetime.datetime.now() + datetime.timedelta(hours=12)}, app.config['SECRET_KEY'])
             return { 'access_token': access_token }, 200
 
-        return { 'message': 'Access denied' }, 402
+        return { 'message': 'Access denied' }, 403

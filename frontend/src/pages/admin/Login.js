@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function Login(){
+function Login(props){
     const classes = useStyles();
 
     const formik = useFormik({
@@ -31,8 +31,8 @@ function Login(){
             password: ""
         },
         onSubmit: (values) => {
-            axios.post("/api/admin/login").then((data) => {
-                console.log("OK");
+            axios.post("/api/admin/login", formik.values).then((resp) => {
+                props.history.push("/admin/");
             }).catch(() => {
                 console.log("ERROR");
             });
@@ -51,10 +51,10 @@ function Login(){
                 <form onSubmit={formik.handleSubmit} autoComplete="off">
                     <Grid container direction="column" spacing={3}>
                         <Grid item>
-                            <TextField name="login" variant="outlined" type="text" label="Login" />
+                            <TextField onChange={formik.handleChange} name="login" variant="outlined" type="text" label="Login" />
                         </Grid>
                         <Grid item>
-                            <TextField name="password" variant="outlined" type="password" label="Password" />
+                            <TextField onChange={formik.handleChange} name="password" variant="outlined" type="password" label="Password" />
                         </Grid>
                         <Grid item>
                             <Button fullWidth variant="contained" color="primary" type="submit">Login</Button>
