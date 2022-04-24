@@ -1,25 +1,14 @@
 import { Button, Paper, Table, TableContainer, TableHead, TableRow, TableBody, TableCell, Typography } from "@material-ui/core";
 import axios from "axios";
-import { useFormik } from 'formik';
 import { useEffect, useState } from "react";
 import AddIcon from '@material-ui/icons/Add';
 import { Link } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 import FlashMessage from "../../components/FlashMessage";
 
 const Products = (props) => {
     const [products, setProducts] = useState([]);
-    const formik = useFormik({
-        initialValues: {
-            name: ""
-        },
-        onSubmit: (values) => {
-            axios.post("/api/admin/products", values).then(() => {
-                console.log("OK");
-            }).catch(() => {
-                console.error("ERROR");
-            })
-        }
-    });
+    const { t } = useTranslation();
 
     useEffect(() => {
         axios.get("/api/admin/products").then((resp) => {
@@ -30,17 +19,17 @@ const Products = (props) => {
     }, [])
 
     return <>
-        <Typography component="h1" variant="h4">Products</Typography>
+        <Typography component="h1" variant="h4">{t('admin.products.title')}</Typography>
         <FlashMessage location={props.location} />
-        <Button component={Link} to="/admin/products/create" variant="contained" color="primary" startIcon={<AddIcon />}>Add product</Button>
+        <Button component={Link} to="/admin/products/create" variant="contained" color="primary" startIcon={<AddIcon />}>{t('admin.products.addButton')}</Button>
         <TableContainer component={Paper}>
             <Table>
                 <TableHead>
                     <TableRow>
-                        <TableCell>ID</TableCell>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Brand</TableCell>
-                        <TableCell>Category</TableCell>
+                        <TableCell>{t('admin.products.fields.id')}</TableCell>
+                        <TableCell>{t('admin.products.fields.name')}</TableCell>
+                        <TableCell>{t('admin.products.fields.brand')}</TableCell>
+                        <TableCell>{t('admin.products.fields.category')}</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>

@@ -1,0 +1,15 @@
+{
+    "title": "Welcome to FlaskCommerce",
+    "admin": {
+        "products": {
+            "title": "Products",
+            "addButton": "Add new product",
+            "fields": {
+                "id": "ID",
+                "name": "Name",
+                "brand": "Brand",
+                "category": "Category"
+            }
+        }
+    }
+}
