@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import AddIcon from '@material-ui/icons/Add';
 import { Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
-import FlashMessage from "../../components/FlashMessage";
+import FlashMessage from "../../../components/FlashMessage";
 
 const Products = (props) => {
     const [products, setProducts] = useState([]);

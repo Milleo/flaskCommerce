@@ -1,0 +1,9 @@
+{
+    "target_class": "models.user:UserModel",
+    "data": {
+        "name": "ADMIN USER",
+        "email": "admin@flaskcommerce.com",
+        "password": "123456",
+        "login": "Admin"
+    }
+}

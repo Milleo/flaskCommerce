@@ -1,12 +1,17 @@
-import Products from "./pages/admin/Products";
-import NotFound from "./pages/NotFound";
 import { Switch, Route } from "react-router-dom";
+import NotFound from "./pages/NotFound";
+import AdminTemplate from "./layout/AdminTemplate";
+import Products from "./pages/admin/products/Products";
+import ProductsForm from "./pages/admin/products/ProductsForm";
 
 function Admin(){
-    return <Switch>
-        <Route path="/products" component={Products} />
-        <Route component={NotFound} />
-    </Switch>
+    return <AdminTemplate>
+        <Switch>
+            <Route exact path="/admin/products" component={Products} />
+            <Route exact path="/admin/products/create" component={ProductsForm} />
+            <Route component={NotFound} />
+        </Switch>
+    </AdminTemplate>
 }
 
 export default Admin;
