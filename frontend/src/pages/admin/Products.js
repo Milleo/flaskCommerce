@@ -1,10 +1,10 @@
 import { Button, Paper, Table, TableContainer, TableHead, TableRow, TableBody, TableCell, Typography } from "@material-ui/core";
-import { Alert } from "@material-ui/lab";
 import axios from "axios";
 import { useFormik } from 'formik';
 import { useEffect, useState } from "react";
 import AddIcon from '@material-ui/icons/Add';
 import { Link } from "react-router-dom";
+import FlashMessage from "../../components/FlashMessage";
 
 const Products = (props) => {
     const [products, setProducts] = useState([]);
@@ -31,7 +31,7 @@ const Products = (props) => {
 
     return <>
         <Typography component="h1" variant="h4">Products</Typography>
-        { props.location.state.flashMessage && <Alert severity={props.location.state.flashMessage.status}>{props.location.state.flashMessage.message}</Alert> }
+        <FlashMessage location={props.location} />
         <Button component={Link} to="/admin/products/create" variant="contained" color="primary" startIcon={<AddIcon />}>Add product</Button>
         <TableContainer component={Paper}>
             <Table>
